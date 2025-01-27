@@ -6,8 +6,8 @@ app = Flask(__name__)
 
 # Load the trained model and vectorizer
 try:
-    model = pickle.load(open("sentiment_model.pkl", "rb"))
-    vectorizer = pickle.load(open("tfidf_vectorizer.pkl", "rb"))
+    model = pickle.load(open("api/sentiment_model.pkl", "rb"))
+    vectorizer = pickle.load(open("api/tfidf_vectorizer.pkl", "rb"))
 except FileNotFoundError as e:
     print(f"Error: {e}")
     exit()
