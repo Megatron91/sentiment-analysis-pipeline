@@ -2,4 +2,4 @@
 venv/
 __pycache__/
 .vercel
-.DS store
+.DS_Store
