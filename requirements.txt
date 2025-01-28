@@ -9,3 +9,4 @@ flask
 transformers
 datasets
 joblib
+pickle5

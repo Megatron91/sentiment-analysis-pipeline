@@ -1,13 +1,14 @@
 from flask import Flask, request, jsonify
 import pickle
+import os
 
 # Initialize Flask app
 app = Flask(__name__)
 
 # Load the trained model and vectorizer
 try:
-    model = pickle.load(open("api/sentiment_model.pkl", "rb"))
-    vectorizer = pickle.load(open("api/tfidf_vectorizer.pkl", "rb"))
+    model = pickle.load(open("sentiment_model.pkl", "rb"))
+    vectorizer = pickle.load(open("tfidf_vectorizer.pkl", "rb"))
 except FileNotFoundError as e:
     print(f"Error: {e}")
     exit()
@@ -45,4 +46,6 @@ def predict():
 
 # Run the app
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Use the PORT environment variable set by Cloud Run
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host="0.0.0.0", port=port)
