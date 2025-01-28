@@ -32,9 +32,10 @@ y_pred = model.predict(X_val_tfidf)
 print(classification_report(y_val, y_pred))
 
 # Save the model and vectorizer
-with open("sentiment_model.pkl", "wb") as f:
+with open("models/sentiment_model.pkl", "wb") as f:
     pickle.dump(model, f)
 
-with open("tfidf_vectorizer.pkl", "wb") as f:
+with open("models/tfidf_vectorizer.pkl", "wb") as f:
     pickle.dump(vectorizer, f)
+    
 print("Model saved.")

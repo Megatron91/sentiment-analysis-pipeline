@@ -39,7 +39,7 @@ print("Sentiment Distribution:\n", sentiment_counts)
 sentiment_counts.plot(kind="bar", title="Sentiment Distribution", color=["blue", "orange"])
 plt.xlabel("Sentiment")
 plt.ylabel("Count")
-plt.savefig("sentiment_distribution.png")  # Save the plot
+plt.savefig("images/sentiment_distribution.png")  # Save the plot
 plt.show()
 
 # 2. Average review length
@@ -55,7 +55,7 @@ plt.figure(figsize=(10, 5))
 plt.imshow(wordcloud, interpolation="bilinear")
 plt.axis("off")
 plt.title("Word Cloud for Positive Reviews")
-plt.savefig("positive_wordcloud.png")  # Save the plot
+plt.savefig("images/positive_wordcloud.png")  # Save the plot
 plt.show()
 
 # Word Cloud for Negative Sentiment (Optional)
@@ -66,7 +66,7 @@ plt.figure(figsize=(10, 5))
 plt.imshow(wordcloud_neg, interpolation="bilinear")
 plt.axis("off")
 plt.title("Word Cloud for Negative Reviews")
-plt.savefig("negative_wordcloud.png")  # Save the plot
+plt.savefig("images/negative_wordcloud.png")  # Save the plot
 plt.show()
 
 print("Data Cleaning and EDA completed.")
