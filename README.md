@@ -6,7 +6,7 @@
    pip install -r requirements.txt
 2. Set up the database:
     ```bash
-    python data_ingestion.py
+    python load_data.py
 3. Train the Model
     ```bash
     python model_training.py
