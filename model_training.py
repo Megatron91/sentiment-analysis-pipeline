@@ -40,7 +40,7 @@ y_pred = model.predict(X_val_tfidf)
 print(classification_report(y_val, y_pred))
 
 # Save model and vectorizer
-pickle.dump(model, open("models/sentiment_model.pkl", "wb"))
-pickle.dump(vectorizer, open("models/tfidf_vectorizer.pkl", "wb"))
+pickle.dump(model, open("sentiment_model.pkl", "wb"))
+pickle.dump(vectorizer, open("tfidf_vectorizer.pkl", "wb"))
 
 print("Model training complete and saved.")

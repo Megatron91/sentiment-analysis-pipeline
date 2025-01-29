@@ -5,8 +5,8 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 
 # Load Model & Vectorizer with Proper Error Handling
-model_path = "models/sentiment_model.pkl"
-vectorizer_path = "models/tfidf_vectorizer.pkl"
+model_path = "sentiment_model.pkl"
+vectorizer_path = "tfidf_vectorizer.pkl"
 
 if not os.path.exists(model_path) or not os.path.exists(vectorizer_path):
     print("Error: Model or vectorizer not found. Please train the model first.")
