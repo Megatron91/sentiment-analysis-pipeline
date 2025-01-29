@@ -28,6 +28,11 @@ source venv/bin/activate
 
 Now, proceed with installing dependencies. 
 
+## Database Setup (SQLite)
+
+This project uses **SQLite3** to store chat history in chat_history.db.
+No additional database setup is required—SQLite works out-of-the-box.
+
 # Usage 
 ##  Step 1: Run Locally
 
@@ -90,3 +95,20 @@ print(response.json())  # Expected Output: {"sentiment_prediction": "positive"}
 - Click Send and check the response.
 
 ![Postman API Test](images/postman.jpeg)
+
+
+## 7. Project Structure
+```
+├── models/                          # Trained model and vectorizer
+│   ├── sentiment_model.pkl          # Saved logistic regression model
+│   ├── tfidf_vectorizer.pkl         # Saved TF-IDF vectorizer
+│
+├── app.py                            # Flask API for model serving
+├── load_data.py                      # Loads IMDB dataset into SQLite
+├── data_cleaning_eda.py               # Cleans text & performs EDA
+├── model_training.py                  # Trains the sentiment classifier
+├── requirements.txt                    # List of dependencies
+├── Dockerfile                          # Docker container setup
+└── README.md                           # Project documentation
+
+```
