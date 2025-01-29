@@ -1,48 +1,38 @@
-from flask import Flask, request, jsonify
-import pickle
 import os
+import pickle
+from flask import Flask, request, jsonify
 
-# Initialize Flask app
 app = Flask(__name__)
 
-# Load the trained model and vectorizer
-try:
-    model = pickle.load(open("models/sentiment_model.pkl", "rb"))
-    vectorizer = pickle.load(open("models/tfidf_vectorizer.pkl", "rb"))
-except FileNotFoundError as e:
-    print(f"Error: {e}")
-    exit()
+# Load Model & Vectorizer with Proper Error Handling
+model_path = "models/sentiment_model.pkl"
+vectorizer_path = "models/tfidf_vectorizer.pkl"
 
-# Home route for the root URL
+if not os.path.exists(model_path) or not os.path.exists(vectorizer_path):
+    print("Error: Model or vectorizer not found. Please train the model first.")
+    exit(1)
+
+model = pickle.load(open(model_path, "rb"))
+vectorizer = pickle.load(open(vectorizer_path, "rb"))
+
 @app.route("/", methods=["GET"])
 def home():
-    return "<h1>Welcome to the Sentiment Analysis API</h1><p>Use the /predict endpoint to classify text.</p>"
+    return "<h1>Welcome to Sentiment Analysis API</h1><p>Use /predict to classify text. and please use curl or postman with apropriate json body.</p>"
 
-# Favicon route to handle browser requests
-@app.route("/favicon.ico")
-def favicon():
-    return "", 204
-
-# Predict endpoint
 @app.route("/predict", methods=["POST"])
 def predict():
-    # Check if the request has JSON content
     if not request.is_json:
         return jsonify({"error": "Content-Type must be application/json"}), 415
 
-    # Parse JSON data
     data = request.get_json()
-    if not data or "review_text" not in data:
-        return jsonify({"error": "Invalid input. 'review_text' key is required."}), 400
+    if "review_text" not in data:
+        return jsonify({"error": "Missing 'review_text' field"}), 400
 
-    # Process review and predict sentiment
-    review_text = data["review_text"]
-    review_vectorized = vectorizer.transform([review_text])
-    sentiment = model.predict(review_vectorized)[0]
-    sentiment_label = "positive" if sentiment == 1 else "negative"
-
-    return jsonify({"sentiment_prediction": sentiment_label})
-
+    review = data["review_text"]
+    review_vectorized = vectorizer.transform([review])
+    prediction = model.predict(review_vectorized)[0]
+    
+    return jsonify({"sentiment_prediction": "positive" if prediction == 1 else "negative"})
 
 # Run the app
 if __name__ == "__main__":

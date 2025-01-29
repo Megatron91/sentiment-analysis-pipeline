@@ -9,4 +9,4 @@ flask
 transformers
 datasets
 joblib
-pickle5
+seaborn
