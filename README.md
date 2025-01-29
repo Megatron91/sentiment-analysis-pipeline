@@ -42,18 +42,18 @@ Now, proceed with installing dependencies.
 
 ``` python app.py```
 
-The API will start at http://127.0.0.1:5000/
+The API will start at http://127.0.0.1:8000/
 
 
 ### 1.4 Test the API
 #### Using curl
-```curl -X POST http://127.0.0.1:5000/predict -H "Content-Type: application/json" -d '{"review_text": "This movie was amazing!"}'```
+```curl -X POST http://127.0.0.1:8000/predict -H "Content-Type: application/json" -d '{"review_text": "This movie was amazing!"}'```
 
 #### Using Python
 ```
 import requests
 
-url = "http://127.0.0.1:5000/predict"
+url = "http://127.0.0.1:8000/predict"
 data = {"review_text": "This movie was fantastic!"}
 
 response = requests.post(url, json=data)
@@ -74,13 +74,19 @@ print(response.json())  # Expected Output: {"sentiment_prediction": "positive"}
 
 
 
-## Step 3: Test API with Postman
-    1.	Open Postman and create a new request.
-    2.	Method: POST
-    3.	URL: http://127.0.0.1:5000/predict
-    4.	Headers:  Content-Type: application/json
-    5.	Body (Raw JSON): 
-        {
-             "review_text": "This movie was a masterpiece! The acting was incredible."
-        } ```
-    6.	Click Send and check the response.
+## Step 3: Test API with POSTMAN
+
+- Open Postman and create a new request.
+- Method: POST
+- URL: http://127.0.0.1:8000/predict
+- Headers:  Content-Type: application/json
+- Body (Raw JSON): 
+```json 
+    {
+        "review_text": "This movie was a masterpiece! The acting was incredible."
+    } 
+```
+
+- Click Send and check the response.
+
+![Postman API Test](images/postman.jpeg)
