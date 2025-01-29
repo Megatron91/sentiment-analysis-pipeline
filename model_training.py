@@ -1,3 +1,4 @@
+import os
 import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
@@ -5,10 +6,18 @@ from sklearn.metrics import classification_report
 import pandas as pd
 import sqlite3
 
+# Define file paths for model and vectorizer
+MODEL_FILE = "models/sentiment_model.pkl"
+VECTORIZER_FILE = "models/tfidf_vectorizer.pkl"
+
+# Create models directory if it doesn’t exist
+os.makedirs("models", exist_ok=True)
+
 # Load data from SQLite
 conn = sqlite3.connect("imdb_reviews.db")
 query = "SELECT cleaned_review, sentiment FROM imdb_reviews"
 data = pd.read_sql(query, conn)
+conn.close()  # Close database connection after loading data
 
 # Drop missing values (fix for NoneType issue)
 data = data.dropna(subset=["cleaned_review"])
@@ -39,8 +48,10 @@ model.fit(X_train_tfidf, y_train)
 y_pred = model.predict(X_val_tfidf)
 print(classification_report(y_val, y_pred))
 
-# Save model and vectorizer
-pickle.dump(model, open("sentiment_model.pkl", "wb"))
-pickle.dump(vectorizer, open("tfidf_vectorizer.pkl", "wb"))
+# Save model and vectorizer safely
+with open(MODEL_FILE, "wb") as model_file:
+    pickle.dump(model, model_file)
+with open(VECTORIZER_FILE, "wb") as vectorizer_file:
+    pickle.dump(vectorizer, vectorizer_file)
 
-print("Model training complete and saved.")
+print(f"Model training complete. Saved as {MODEL_FILE} and {VECTORIZER_FILE}.")
