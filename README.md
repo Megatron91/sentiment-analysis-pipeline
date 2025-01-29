@@ -97,7 +97,7 @@ print(response.json())  # Expected Output: {"sentiment_prediction": "positive"}
 ![Postman API Test](images/postman.jpeg)
 
 
-## 7. Project Structure
+## 4. Project Structure
 ```
 ├── models/                          # Trained model and vectorizer
 │   ├── sentiment_model.pkl          # Saved logistic regression model
